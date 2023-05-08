@@ -1,17 +1,52 @@
-import { Router } from "express";
-import { Request } from "node-fetch";
-import { createStaticHandler } from "react-router-dom/server";
+import { Router, Request as ExpressRequest } from "express";
+import { Request, Response } from "node-fetch";
+import {
+  createStaticHandler,
+  createStaticRouter,
+  StaticRouterProvider,
+} from "react-router-dom/server";
 import { renderToString } from "react-dom/server";
-import { App } from "../src/App";
-import React from "react";
+import { routes } from "../src/router";
+import { StaticHandler } from "@remix-run/router";
+
+// 构造一个Request对象，React-Router根据它的信息来匹配路由
+const createRequest = (req: ExpressRequest) => {
+  const origin = `${req.protocol}://${req.get("host")}`;
+  const url = new URL(req.url, origin);
+  const controller = new AbortController();
+  req.on("close", () => controller.abort());
+  const init = {
+    method: req.method,
+    signal: controller.signal,
+  };
+  // @ts-ignore
+  return new Request(url.href, init);
+};
+
 const pageRouter = Router();
+
+type QueryReturnType = Awaited<ReturnType<StaticHandler["query"]>>;
+
+function isResponse(
+  context: QueryReturnType
+): context is Extract<QueryReturnType, { status: number }> {
+  return context instanceof Response;
+}
+
 pageRouter.get("*", async (req, res) => {
-  const data = await App.getInitialData();
-  // @ts-ignore
-  global.__innerData = data;
-  const str = renderToString(<App />);
-  // @ts-ignore
-  global.__innerData = null;
+  const { query, dataRoutes } = createStaticHandler(routes);
+  const context = await query(
+    createRequest(req) as unknown as globalThis.Request
+  );
+
+  if (isResponse(context)) {
+    throw context;
+  }
+
+  const router = createStaticRouter(dataRoutes, context);
+  const str = renderToString(
+    <StaticRouterProvider context={context} router={router} />
+  );
   res.send(`
     <!DOCTYPE html>
     <html lang="en">
@@ -25,9 +60,6 @@ pageRouter.get("*", async (req, res) => {
     </head>
     <body>
       <div id="root">${str}</div>
-      <textarea id="ssrInnerData" style="display:none">${JSON.stringify(
-        data
-      )}</textarea>
     </body>
     </html>
   `);

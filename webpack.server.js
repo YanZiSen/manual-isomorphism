@@ -17,6 +17,17 @@ module.exports = /** @type {import('webpack').Configuration}*/ ({
           },
         },
       },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "less-loader",
+          },
+        ],
+      },
     ],
   },
   externals: [nodeExternals()],
@@ -39,4 +50,5 @@ module.exports = /** @type {import('webpack').Configuration}*/ ({
       __SSR: JSON.stringify(true),
     }),
   ],
+  devtool: "cheap-source-map",
 });

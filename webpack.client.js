@@ -16,6 +16,22 @@ module.exports = /** @type {import('webpack').Configuration}*/ ({
           },
         },
       },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                namedExport: true,
+              },
+            },
+          },
+          {
+            loader: "less-loader",
+          },
+        ],
+      },
     ],
   },
   watch: true,

@@ -1,5 +1,10 @@
-import { App } from "./App";
 import { hydrateRoot } from "react-dom/client";
-import React from 'react'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { routes } from "./router";
 
-hydrateRoot(document.getElementById('root') as Element, <App />);
+const router = createBrowserRouter(routes);
+
+hydrateRoot(
+  document.getElementById("root") as Element,
+  <RouterProvider router={router} />
+);
