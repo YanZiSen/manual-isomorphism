@@ -28,13 +28,13 @@ let lazyMatched = matchRoutes(routes, window.location)?.filter((module) => {
 if (lazyMatched && lazyMatched.length) {
   Promise.all(
     lazyMatched.map(async (module) => {
-      const routeModule = await module.route.lazy;
+      const routeModule = await module.route.lazy?.();
       Object.assign(module.route, {
         ...routeModule,
         lazy: undefined,
       });
     })
-  );
+  ).then(render);
 } else {
   render();
 }

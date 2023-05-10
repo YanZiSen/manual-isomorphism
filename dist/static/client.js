@@ -42345,16 +42345,17 @@ var lazyMatched = (_a = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.matchRo
 if (lazyMatched && lazyMatched.length) {
     Promise.all(lazyMatched.map(function (module) { return __awaiter(void 0, void 0, void 0, function () {
         var routeModule;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, module.route.lazy];
+        var _a, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0: return [4 /*yield*/, ((_b = (_a = module.route).lazy) === null || _b === void 0 ? void 0 : _b.call(_a))];
                 case 1:
-                    routeModule = _a.sent();
+                    routeModule = _c.sent();
                     Object.assign(module.route, __assign(__assign({}, routeModule), { lazy: undefined }));
                     return [2 /*return*/];
             }
         });
-    }); }));
+    }); })).then(render);
 }
 else {
     render();

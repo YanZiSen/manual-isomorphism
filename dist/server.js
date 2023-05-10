@@ -483,6 +483,16 @@ module.exports = require("node-fetch");
 
 /***/ }),
 
+/***/ "react":
+/*!************************!*\
+  !*** external "react" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = require("react");
+
+/***/ }),
+
 /***/ "react-dom/server":
 /*!***********************************!*\
   !*** external "react-dom/server" ***!

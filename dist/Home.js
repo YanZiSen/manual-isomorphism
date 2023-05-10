@@ -294,6 +294,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_index_less__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var isomorphic_style_loader_useStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! isomorphic-style-loader/useStyles */ "isomorphic-style-loader/useStyles");
 /* harmony import */ var isomorphic_style_loader_useStyles__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(isomorphic_style_loader_useStyles__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -346,10 +348,12 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+
 var Home = function () {
     isomorphic_style_loader_useStyles__WEBPACK_IMPORTED_MODULE_4___default()((_index_less__WEBPACK_IMPORTED_MODULE_3___default()));
     var list = (0,_utils_useDataFromLoader__WEBPACK_IMPORTED_MODULE_2__.useDataFromLoader)(Home.loader);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "Hello world!" }), list.map(function (item) {
+    var _a = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(0), count = _a[0], setCount = _a[1];
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", __assign({ onClick: function () { return setCount(count + 1); } }, { children: ["Hello world!", count] })), list.map(function (item) {
                 return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", __assign({ className: (_index_less__WEBPACK_IMPORTED_MODULE_3___default().line) }, { children: item.name }), item.name));
             })] }));
 };
