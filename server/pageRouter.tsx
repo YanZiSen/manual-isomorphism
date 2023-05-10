@@ -7,6 +7,7 @@ import {
 } from "react-router-dom/server";
 import { renderToString } from "react-dom/server";
 import { routes } from "../src/router";
+import StyleContext from "isomorphic-style-loader/StyleContext";
 import { StaticHandler } from "@remix-run/router";
 
 // 构造一个Request对象，React-Router根据它的信息来匹配路由
@@ -26,6 +27,9 @@ const createRequest = (req: ExpressRequest) => {
 const pageRouter = Router();
 
 type QueryReturnType = Awaited<ReturnType<StaticHandler["query"]>>;
+type StyleItem = {
+  _getContent: () => string[];
+};
 
 function isResponse(
   context: QueryReturnType
@@ -43,9 +47,19 @@ pageRouter.get("*", async (req, res) => {
     throw context;
   }
 
+  const styleEls: string[] = [];
+  const insertCss = (...styles: StyleItem[]) => {
+    styles.forEach((style, i) => {
+      const [[id, content]] = style._getContent();
+      styleEls.push(`<style id="s${id}-${i}">${content}</style>`);
+    });
+  };
+
   const router = createStaticRouter(dataRoutes, context);
   const str = renderToString(
-    <StaticRouterProvider context={context} router={router} />
+    <StyleContext.Provider value={{ insertCss }}>
+      <StaticRouterProvider context={context} router={router} />
+    </StyleContext.Provider>
   );
   res.send(`
     <!DOCTYPE html>
@@ -55,6 +69,7 @@ pageRouter.get("*", async (req, res) => {
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Document</title>
+      ${styleEls.join("")}
       <script src="/client.js" defer></script>
       <script src="/observer.js" defer></script>
     </head>

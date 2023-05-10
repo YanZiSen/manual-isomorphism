@@ -1,8 +1,10 @@
 import { getList } from "../../mock/list";
 import { useDataFromLoader } from "../../utils/useDataFromLoader";
 import styles from "./index.less";
+import useStyles from "isomorphic-style-loader/useStyles";
 
 const Home = () => {
+  useStyles(styles);
   const list = useDataFromLoader(Home.loader);
   return (
     <div>

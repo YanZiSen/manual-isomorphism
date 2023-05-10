@@ -22,6 +22,8 @@
     "@types/react-dom": "^18.2.4",
     "@types/webpack": "^5.28.1",
     "css-loader": "^6.7.3",
+    "css-loader4": "npm:css-loader@^4.3.0",
+    "isomorphic-style-loader": "^5.3.2",
     "less": "^4.1.3",
     "less-loader": "^11.1.0",
     "nodemon": "^2.0.22",
@@ -30,6 +32,7 @@
     "typescript": "^5.0.4",
     "webpack": "^5.82.0",
     "webpack-cli": "^5.0.2",
+    "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
