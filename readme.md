@@ -24,3 +24,5 @@ npm i git+https://@github.com:kriasoft/isomorphic-style-loader.git#4c21d77da1fac
 [模块加载](https://www.freecodecamp.org/chinese/news/webpack-module-loading/)
 
 npm link 测试代码会造成项目存在两个 React 的情况；
+
+react-router-6 的权限认证；

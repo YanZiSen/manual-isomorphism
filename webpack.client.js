@@ -16,7 +16,6 @@ const config = /** @type {import('webpack').Configuration}*/ ({
     path: path.resolve(__dirname, "./dist/static"),
     filename: "[name].js",
   },
-  mode: "development",
   plugins: [
     new webpack.DefinePlugin({
       __SSR: JSON.stringify(false),

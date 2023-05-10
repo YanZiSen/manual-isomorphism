@@ -1,6 +1,5 @@
 import { RouteObject } from "react-router";
 import { Layout } from "./Layout";
-import { Home } from "./Home";
 import { User } from "./User";
 
 export const routes: RouteObject[] = [
@@ -10,9 +9,11 @@ export const routes: RouteObject[] = [
     loader: Layout.loader,
     children: [
       {
-        element: <Home />,
-        loader: Home.loader,
         index: true, // 默认
+        async lazy() {
+          let { Home } = await import(/* webpackChunkName: 'Home'*/ "./Home");
+          return { Component: Home, loader: Home.loader };
+        },
       },
       {
         path: "user",

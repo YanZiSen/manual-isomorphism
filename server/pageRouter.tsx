@@ -28,7 +28,7 @@ const pageRouter = Router();
 
 type QueryReturnType = Awaited<ReturnType<StaticHandler["query"]>>;
 type StyleItem = {
-  _getContent: () => string[];
+  _getContent: () => [Array<string>, ...string[]];
 };
 
 function isResponse(

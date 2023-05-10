@@ -39,4 +39,5 @@ module.exports = /** @type {import('webpack').Configuration}*/ ({
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
+  mode: "development",
 });

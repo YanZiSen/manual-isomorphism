@@ -19,7 +19,6 @@ const config = /** @type {import('webpack').Configuration}*/ ({
     filename: "[name].js",
   },
   target: "node",
-  mode: "development",
   plugins: [
     new webpack.DefinePlugin({
       __SSR: JSON.stringify(true),
